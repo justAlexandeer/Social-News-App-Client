@@ -1,12 +1,13 @@
 package com.github.justalexandeer.socialnewsappclient.ui
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.Authentication
 import com.github.justalexandeer.socialnewsappclient.ui.createnews.CreateNews
 import com.github.justalexandeer.socialnewsappclient.ui.newsline.NewsLine
+import com.github.justalexandeer.socialnewsappclient.ui.newsline.NewsLineViewModel
 import com.github.justalexandeer.socialnewsappclient.ui.user.User
 
 @Composable
@@ -15,9 +16,6 @@ fun SocialNewsNavGraph(navController: NavHostController) {
         navController = navController,
         startDestination = SocialNewsDestinations.CREATE_NEWS_ROUTE
     ) {
-        composable(SocialNewsDestinations.AUTHENTICATION_ROUTE) {
-            Authentication()
-        }
         composable(SocialNewsDestinations.NEWS_LINE_ROUTE) {
             NewsLine()
         }

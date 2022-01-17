@@ -31,13 +31,4 @@ class SocialNewsNavigation(navController: NavHostController) {
             restoreState = true
         }
     }
-    val navigateToAuthentication: () -> Unit = {
-        navController.navigate(SocialNewsDestinations.AUTHENTICATION_ROUTE) {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
-            }
-            launchSingleTop = true
-            restoreState = true
-        }
-    }
 }

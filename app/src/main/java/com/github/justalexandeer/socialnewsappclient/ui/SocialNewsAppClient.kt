@@ -1,7 +1,6 @@
 package com.github.justalexandeer.socialnewsappclient.ui
 
-import android.util.Log
-import androidx.annotation.StringRes
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -14,14 +13,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.github.justalexandeer.socialnewsappclient.MainActivityViewModel
 import com.github.justalexandeer.socialnewsappclient.R
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.AuthenticationScreen
+import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@ExperimentalFoundationApi
+@ExperimentalPagerApi
+@InternalCoroutinesApi
 @Composable
 fun SocialNewsAppClient() {
+    val mainActivityViewModel: MainActivityViewModel = viewModel()
+    val needAuthentication by remember { mainActivityViewModel.needAuthentication }
+
+    if (needAuthentication) {
+        AuthenticationScreen { flag -> mainActivityViewModel.changeValueAuthorization(flag) }
+    } else {
+        SocialNewsGraph()
+    }
+}
+
+@Composable
+fun SocialNewsGraph() {
     val navController = rememberNavController()
     val navigationActions = remember(navController) { SocialNewsNavigation(navController) }
     Scaffold(

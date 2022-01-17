@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/ic_social_media_post_4544.xml" value="0.15648148148148147" />
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/ic_youtuber_4519.xml" value="0.15648148148148147" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

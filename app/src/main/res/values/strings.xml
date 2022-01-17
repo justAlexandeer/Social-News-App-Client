@@ -3,4 +3,6 @@
     <string name="news_line_label">News</string>
     <string name="create_news_label">Create</string>
     <string name="user_info_label">User</string>
+    <string name="button_registration">Register</string>
+    <string name="button_sign_in">Sign In</string>
 </resources>
