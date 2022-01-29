@@ -20,7 +20,7 @@ class OnboardingPageRepository @Inject constructor() {
             add(
                 OnboardingPage(
                     R.drawable.ic_youtuber_4519,
-                    "Consectetur lorem donec massa sapien faucibus",
+                    "Consectetur lorem donec massa sapien",
                     "Egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam ut " +
                             "porttitor leo a diam sollicitudin tempor"
                 )
@@ -44,7 +44,7 @@ class OnboardingPageRepository @Inject constructor() {
             add(
                 OnboardingPage(
                     R.drawable.ic_youtuber_4533,
-                    "dolor purus non enim praesent elementum facilisis leo vel",
+                    "dolor purus non enim praesent elementum ",
                     "nunc mattis enim ut tellus elementum sagittis vitae et leo duis" +
                             " ut diam quam nulla porttitor massa id neque aliquam vestibulum morbi"
                 )

@@ -11,9 +11,6 @@ class LoggingInterceptor : Interceptor {
         val request: Request = chain.request()
         val response = chain.proceed(request)
 
-        Log.i(TAG, "intercept: ${request.url}")
-        Log.i(TAG, "intercept: ${request.headers}")
-
         return response
     }
 

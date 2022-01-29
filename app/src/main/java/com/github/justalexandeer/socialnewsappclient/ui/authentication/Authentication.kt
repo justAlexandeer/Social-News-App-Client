@@ -23,10 +23,13 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @ExperimentalPagerApi
 @InternalCoroutinesApi
 @Composable
-fun AuthenticationScreen(changeNeedAuthenticationValue: (Boolean) -> Unit) {
+fun Authentication(changeAuthenticationFlag: (Boolean) -> Unit) {
 
     val authenticationViewModel: AuthenticationViewModel = viewModel()
 
-    OnboardingScreen(authenticationViewModel.listOfOnboardingPages)
-
+    //OnboardingScreen(authenticationViewModel.listOfOnboardingPages)
+    LoginScreen(
+        authenticationViewModel,
+        changeAuthenticationFlag
+    )
 }

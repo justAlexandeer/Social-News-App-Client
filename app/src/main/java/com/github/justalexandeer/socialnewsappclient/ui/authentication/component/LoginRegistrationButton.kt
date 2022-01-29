@@ -1,12 +1,10 @@
 package com.github.justalexandeer.socialnewsappclient.ui.authentication.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,9 +31,9 @@ fun LoginRegistrationButton(
             .height(70.dp)
             .fillMaxWidth()
             .padding(
-                start = 50.dp,
-                end = 50.dp,
-                bottom = dimensionResource(R.dimen.layout_margins)
+                start = dimensionResource(R.dimen.grid_6),
+                end = dimensionResource(R.dimen.grid_6),
+                bottom = dimensionResource(R.dimen.grid_2)
             )
     ) {
         Row(
@@ -44,6 +42,7 @@ fun LoginRegistrationButton(
         ) {
             Button(
                 onClick = { /*TODO*/ },
+                shape = MaterialTheme.shapes.large,
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)

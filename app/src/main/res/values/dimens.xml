@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="layout_margins">16dp</dimen>
+    <dimen name="grid_1">8dp</dimen>
+    <dimen name="grid_1_5">12dp</dimen>
+    <dimen name="grid_2">16dp</dimen>
+    <dimen name="grid_2_5">20dp</dimen>
+    <dimen name="grid_3">24dp</dimen>
+    <dimen name="grid_3_5">28dp</dimen>
+    <dimen name="grid_6">48dp</dimen>
 </resources>

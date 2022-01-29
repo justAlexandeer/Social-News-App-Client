@@ -2,18 +2,21 @@ package com.github.justalexandeer.socialnewsappclient.ui.authentication
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,14 +30,18 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.android.material.math.MathUtils
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import okhttp3.internal.wait
 
 @ExperimentalFoundationApi
 @InternalCoroutinesApi
 @ExperimentalPagerApi
 @Composable
-fun OnboardingScreen(listOfOnboardingPage: List<OnboardingPage>) {
+fun OnboardingScreen(
+    listOfOnboardingPage: List<OnboardingPage>
+) {
 
     val pagerState = rememberPagerState()
 
@@ -57,20 +64,17 @@ fun OnboardingContent(
     Column(
         Modifier
             .fillMaxSize()
-            .padding(top = 16.dp)
+            .padding(top = dimensionResource(R.dimen.grid_2))
     ) {
-        Column(Modifier.weight(5F)) {
+        Column(Modifier.weight(1f)) {
             ViewPager(
                 pagerState,
                 listOfOnboardingPage
             )
         }
         Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .weight(2F)
-                .fillMaxSize()
         ) {
             PagerIndicator(
                 pagerState = pagerState,
@@ -79,4 +83,5 @@ fun OnboardingContent(
             LoginRegistrationButton()
         }
     }
+
 }

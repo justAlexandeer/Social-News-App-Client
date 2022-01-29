@@ -16,6 +16,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.github.justalexandeer.socialnewsappclient.R
 import com.github.justalexandeer.socialnewsappclient.data.repository.OnboardingPage
 import com.google.android.material.math.MathUtils
@@ -27,22 +28,24 @@ fun Page(onboardingPage: OnboardingPage, pageOffset: Float) {
             onboardingPage = onboardingPage,
             pageOffset = pageOffset,
             modifier = Modifier
-                .weight(2f)
+                .weight(1f)
         )
         PageTitle(
             titleText = onboardingPage.titleText,
             modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
+                .padding(
+                    top = dimensionResource(R.dimen.grid_1_5),
+                    bottom = dimensionResource(R.dimen.grid_3_5)
+                )
+                .fillMaxWidth()
         )
         PageDescription(
             descriptionText = onboardingPage.contextText,
             pageOffset = pageOffset,
             modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
-                .padding(horizontal = (dimensionResource(R.dimen.layout_margins)))
-
+                .fillMaxWidth()
+                .padding(bottom = dimensionResource(R.dimen.grid_3_5))
+                .padding(horizontal = dimensionResource(R.dimen.grid_2))
         )
     }
 }
@@ -57,7 +60,7 @@ fun PageImage(
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .padding(horizontal = (dimensionResource(R.dimen.layout_margins)))
+            .padding(horizontal = (dimensionResource(R.dimen.grid_2)))
     ) {
         Image(
             painter = painterResource(onboardingPage.resId),
@@ -86,7 +89,7 @@ fun PageTitle(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .padding(horizontal = (dimensionResource(R.dimen.layout_margins)))
+            .padding(horizontal = (dimensionResource(R.dimen.grid_2)))
     ) {
         Text(
             text = titleText,

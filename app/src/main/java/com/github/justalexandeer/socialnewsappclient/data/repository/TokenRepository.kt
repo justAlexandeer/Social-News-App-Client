@@ -1,6 +1,8 @@
 package com.github.justalexandeer.socialnewsappclient.data.repository
 
+import android.content.SharedPreferences
 import com.github.justalexandeer.socialnewsappclient.data.sharedpreferences.SharedPreferencesManager
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,6 +33,10 @@ class TokenRepository @Inject constructor(
 
     fun getIsUserAuthenticated(): Boolean {
         return sharedPreferencesManager.getAuthenticationFlag()
+    }
+
+    fun getObservableAuthenticationFlag(): BehaviorSubject<Boolean> {
+        return sharedPreferencesManager.getObservableAuthenticationFlag()
     }
 
 }

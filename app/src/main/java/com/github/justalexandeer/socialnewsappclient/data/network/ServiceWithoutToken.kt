@@ -12,7 +12,7 @@ class ServiceWithoutToken {
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
-        .baseUrl("https://9da2-80-83-237-67.ngrok.io")
+        .baseUrl("https://d9a6-95-161-223-143.ngrok.io")
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 

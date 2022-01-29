@@ -10,14 +10,22 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val tokenRepository: TokenRepository
-): ViewModel() {
+) : ViewModel() {
 
     val needAuthentication = mutableStateOf(!tokenRepository.getIsUserAuthenticated())
 
-    fun changeValueAuthorization(flag: Boolean) {
-        tokenRepository.setAuthenticationFlag(flag)
-        needAuthentication.value = (!tokenRepository.getIsUserAuthenticated())
-        Log.i("NewsLineViewModelTEST", needAuthentication.value.toString())
+    init {
+        tokenRepository.getObservableAuthenticationFlag()
+            .subscribe {
+                needAuthentication.value = !it
+            }
     }
 
+    fun changeAuthenticationFlag(flag: Boolean) {
+        tokenRepository.setAuthenticationFlag(flag)
+    }
+
+    companion object {
+        private const val TAG = "MainActivityViewModel"
+    }
 }

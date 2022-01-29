@@ -1,11 +1,21 @@
 package com.github.justalexandeer.socialnewsappclient.data.sharedpreferences
 
 import android.content.SharedPreferences
+import android.util.Log
+import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.PublishSubject
 
-class SharedPreferencesManager (
+class SharedPreferencesManager(
     private val sharedPreferences: SharedPreferences,
     private val sharedPreferencesEditor: SharedPreferences.Editor
-) {
+) : SharedPreferences.OnSharedPreferenceChangeListener {
+
+    init {
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    private val needAuthentication: BehaviorSubject<Boolean> =
+        BehaviorSubject.createDefault(getAuthenticationFlag())
 
     fun saveAccessToken(accessToken: String) {
         with(sharedPreferencesEditor) {
@@ -40,10 +50,22 @@ class SharedPreferencesManager (
         return sharedPreferences.getBoolean(NEED_AUTHENTICATION, false)
     }
 
+    fun getObservableAuthenticationFlag(): BehaviorSubject<Boolean> {
+        return needAuthentication
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        if (key == NEED_AUTHENTICATION && sharedPreferences != null) {
+            Log.i(TAG, "onSharedPreferenceChanged: ${sharedPreferences.getBoolean(NEED_AUTHENTICATION, false)}")
+            needAuthentication.onNext(sharedPreferences.getBoolean(NEED_AUTHENTICATION, false))
+        }
+    }
+
     companion object {
         const val APP_PREFERENCES = "AppPreferences"
         private const val ACCESS_TOKEN = "AccessToken"
         private const val REFRESH_TOKEN = "RefreshToken"
         private const val NEED_AUTHENTICATION = "NeedAuthentication"
+        private const val TAG = "SharedPreferencesManage"
     }
 }

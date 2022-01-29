@@ -5,4 +5,10 @@
     <string name="user_info_label">User</string>
     <string name="button_registration">Register</string>
     <string name="button_sign_in">Sign In</string>
+    <string name="text_title_login">Let`s sign you in</string>
+    <string name="text_subtitle_login">Welcome back.\nYou`ve been missed!</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="textNoAccount">Don`t have an account?</string>
+    <string name="register">Register</string>
 </resources>
