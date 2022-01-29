@@ -1,11 +1,10 @@
-package com.github.justalexandeer.socialnewsappclient.ui.authentication.component
+package com.github.justalexandeer.socialnewsappclient.ui.authentication.onboarding.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource

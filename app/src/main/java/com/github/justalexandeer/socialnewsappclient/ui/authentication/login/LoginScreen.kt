@@ -1,5 +1,6 @@
-package com.github.justalexandeer.socialnewsappclient.ui.authentication
+package com.github.justalexandeer.socialnewsappclient.ui.authentication.login
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,38 +15,36 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.justalexandeer.socialnewsappclient.R
 import com.github.justalexandeer.socialnewsappclient.ui.authentication.component.CustomButton
 import com.github.justalexandeer.socialnewsappclient.ui.authentication.component.LoginTextField
 import com.github.justalexandeer.socialnewsappclient.ui.authentication.component.PasswordTextField
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.model.LoginEvent
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.model.LoginState
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.login.model.*
 
 @Composable
 fun LoginScreen(
-    authenticationViewModel: AuthenticationViewModel,
-    changeAuthenticationFlag: (Boolean) -> Unit
+    navigate: @Composable () -> Unit
 ) {
-    val currentState = authenticationViewModel.loginViewState
+    val loginViewModel: LoginViewModel = viewModel()
+    val currentState = loginViewModel.loginViewState
+
     LoginContent(
         currentState.value,
-        { authenticationViewModel.obtainLoginEvent(it) },
-        changeAuthenticationFlag
+        { loginViewModel.obtainEvent(it) },
+        navigate
     )
 }
 
 @Composable
 fun LoginContent(
-    currentState: LoginState,
-    sendEvent: (LoginEvent) -> Unit,
-    changeAuthenticationFlag: (Boolean) -> Unit
+    currentState: LoginScreenState,
+    sendEvent: (LoginScreenEvent) -> Unit,
+    navigate: @Composable () -> Unit
 ) {
-    val (textUserName, setUserName) = remember { mutableStateOf("") }
-    val (textPassword, setPassword) = remember { mutableStateOf("") }
 
-    if (currentState is LoginState.SuccessSignIn) {
-        changeAuthenticationFlag(true)
-        sendEvent(LoginEvent.ResetStateEvent)
+    if(currentState.isLoginSuccess) {
+        navigate()
     }
 
     Column(
@@ -64,34 +63,25 @@ fun LoginContent(
                     )
                     SubTitle()
                     LoginTextField(
-                        textUserName,
-                        setUserName,
+                        currentState.loginTextFieldState,
+                        { sendEvent(LoginScreenEvent.UserNameTextFieldChange(it)) },
                         Modifier
                             .padding(top = dimensionResource(R.dimen.grid_3_5))
                             .padding(bottom = dimensionResource(R.dimen.grid_1))
                     )
                     PasswordTextField(
-                        textPassword,
-                        setPassword
+                        currentState.passwordTextFieldState,
+                        { sendEvent(PasswordTextFieldEvent.PasswordTextFieldChange(it)) },
+                        { sendEvent(PasswordTextFieldEvent.PasswordTextFieldIconClick) }
                     )
-                    if (currentState is LoginState.Loading) {
-                        Column(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(top = dimensionResource(R.dimen.grid_3))
-                        ) {
-                            CircularProgressIndicator(
-                                Modifier
-                                    .align(Alignment.CenterHorizontally)
-                            )
-                        }
-                    }
-                    if (currentState is LoginState.ErrorSignIn) {
-                        ErrorSignInText(
-                            currentState.errorMessage,
-                            Modifier.padding(top = dimensionResource(R.dimen.grid_3))
-                        )
-                    }
+                    ProgressIndicator(
+                        currentState.circularProgressIndicatorState
+                    )
+                    ErrorSignInText(
+                        currentState.errorSignInTextState,
+                        Modifier.padding(top = dimensionResource(R.dimen.grid_3))
+                    )
+
                 }
 
             }
@@ -101,15 +91,12 @@ fun LoginContent(
         ) {
             NoAccountText()
             CustomButton(
-                currentState !is LoginState.Loading,
-                { sendEvent(LoginEvent.SignInEvent(textUserName, textPassword)) }
+                currentState.customButtonState,
+                { sendEvent(LoginScreenEvent.OnCustomButtonClick) }
             )
         }
     }
-
-
 }
-
 
 @Composable
 fun LoginTitle(
@@ -161,13 +148,33 @@ fun NoAccountText() {
 
 @Composable
 fun ErrorSignInText(
-    errorMessage: String,
+    errorSignInTextState: ErrorSignInTextState,
     modifier: Modifier = Modifier
 ) {
-    Text(
-        text = errorMessage,
-        color = Color.Red,
-        textAlign = TextAlign.Center,
-        modifier = modifier.fillMaxWidth()
-    )
+    if (errorSignInTextState.isVisible) {
+        Text(
+            text = errorSignInTextState.errorMessage,
+            color = Color.Red,
+            textAlign = TextAlign.Center,
+            modifier = modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun ProgressIndicator(
+    circularProgressIndicatorState: CircularProgressIndicatorState
+) {
+    if (circularProgressIndicatorState.isVisible) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = dimensionResource(R.dimen.grid_3))
+        ) {
+            CircularProgressIndicator(
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+    }
 }

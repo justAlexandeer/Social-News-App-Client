@@ -17,17 +17,18 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.github.justalexandeer.socialnewsappclient.R
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.login.model.CustomButtonState
 
 @Composable
 fun CustomButton(
-    enabled: Boolean,
-    sendEvent: () -> Unit
+    customButtonState: CustomButtonState,
+    onButtonClick: () -> Unit
 ) {
     Button(
         onClick = {
-            sendEvent()
+            onButtonClick()
         },
-        enabled = enabled,
+        enabled = customButtonState.isEnabled,
         shape = MaterialTheme.shapes.large,
         border = BorderStroke(0.5.dp, Color.Gray),
         colors = ButtonDefaults.buttonColors(

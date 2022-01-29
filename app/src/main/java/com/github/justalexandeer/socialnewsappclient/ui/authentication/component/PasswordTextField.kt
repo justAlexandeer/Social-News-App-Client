@@ -14,41 +14,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import com.github.justalexandeer.socialnewsappclient.R
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.login.model.PasswordTextFieldEvent
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.login.model.PasswordTextFieldState
 
 @Composable
 fun PasswordTextField(
-    textPassword: String,
-    setTextPassword: (String) -> Unit,
+    passwordTextFieldState: PasswordTextFieldState,
+    passwordTextFieldChange: (String) -> Unit,
+    passwordTextFieldIconClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var showPassword by remember { mutableStateOf(false) }
     OutlinedTextField(
-        value = textPassword,
+        value = passwordTextFieldState.text,
         label = { Text(text = stringResource(R.string.password)) },
         trailingIcon = {
-            if (showPassword) {
-                IconButton(onClick = { showPassword = false }) {
-                    Icon(
-                        imageVector = Icons.Filled.Visibility,
-                        contentDescription = null
-                    )
-                }
-            } else {
-                IconButton(onClick = { showPassword = true }) {
-                    Icon(
-                        imageVector = Icons.Filled.VisibilityOff,
-                        contentDescription = null
-                    )
-                }
+            IconButton(
+                onClick = { passwordTextFieldIconClick() }
+            ) {
+                Icon(
+                    imageVector = if (passwordTextFieldState.passwordVisibility)
+                        Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                    contentDescription = null
+                )
             }
+
         },
         singleLine = true,
         onValueChange = {
-            setTextPassword(it)
+            passwordTextFieldChange(it)
         },
-        visualTransformation = if (showPassword) {
+        visualTransformation = if (passwordTextFieldState.passwordVisibility) {
             VisualTransformation.None
         } else {
             PasswordVisualTransformation()

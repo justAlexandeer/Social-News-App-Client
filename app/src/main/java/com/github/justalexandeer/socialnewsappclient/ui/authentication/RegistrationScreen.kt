@@ -15,11 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import com.github.justalexandeer.socialnewsappclient.R
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.component.CustomButton
 import com.github.justalexandeer.socialnewsappclient.ui.authentication.component.LoginTextField
 import com.github.justalexandeer.socialnewsappclient.ui.authentication.component.PasswordTextField
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.model.LoginEvent
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.model.LoginState
 
 @Composable
 fun RegistrationScreen() {
@@ -42,8 +39,8 @@ fun RegistrationContent() {
         ) {
             LazyColumn {
                 item {
-                    LoginTextField(textUserName = textUserName, setTextUserName = setUserName)
-                    PasswordTextField(textPassword = textPassword, setTextPassword = setPassword)
+//                    LoginTextField(textUserName = textUserName, setTextUserName = setUserName)
+//                    PasswordTextField(textPassword = textPassword, setTextPassword = setPassword)
                     ShowPasswordRequirementsText(
                         isExpanded,
                         setIsExpanded

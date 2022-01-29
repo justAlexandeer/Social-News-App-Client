@@ -7,19 +7,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.github.justalexandeer.socialnewsappclient.R
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.login.model.LoginTextFieldState
 
 @Composable
 fun LoginTextField(
-    textUserName: String,
-    setTextUserName: (String) -> Unit,
+    loginTextFieldState: LoginTextFieldState,
+    userNameTextFieldChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
-        value = textUserName,
+        value = loginTextFieldState.text,
         label = { Text(text = stringResource(R.string.username)) },
         singleLine = true,
         onValueChange = {
-            setTextUserName(it)
+            userNameTextFieldChange(it)
         },
         modifier = modifier
             .fillMaxWidth(),

@@ -19,8 +19,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.justalexandeer.socialnewsappclient.MainActivityViewModel
 import com.github.justalexandeer.socialnewsappclient.R
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.Authentication
-import com.github.justalexandeer.socialnewsappclient.ui.authentication.RegistrationScreen
+import com.github.justalexandeer.socialnewsappclient.ui.authentication.login.LoginScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -33,11 +32,17 @@ fun SocialNewsAppClient() {
     val needAuthentication by remember { mainActivityViewModel.needAuthentication }
 
     if (needAuthentication) {
-        //Authentication { flag -> mainActivityViewModel.changeAuthenticationFlag(flag) }
-        RegistrationScreen()
+        LoginScreen { SocialNewsGraph() }
     } else {
         SocialNewsGraph()
     }
+
+//    if (needAuthentication) {
+//        //Authentication { flag -> mainActivityViewModel.changeAuthenticationFlag(flag) }
+//        RegistrationScreen()
+//    } else {
+//        SocialNewsGraph()
+//    }
 }
 
 @Composable

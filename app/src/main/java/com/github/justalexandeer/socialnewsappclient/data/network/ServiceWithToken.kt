@@ -24,7 +24,7 @@ class ServiceWithToken @Inject constructor(
     val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
-        .baseUrl("https://d9a6-95-161-223-143.ngrok.io")
+        .baseUrl("https://3d49-95-161-223-143.ngrok.io")
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 }

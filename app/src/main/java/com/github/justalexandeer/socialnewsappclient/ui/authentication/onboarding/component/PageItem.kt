@@ -1,4 +1,4 @@
-package com.github.justalexandeer.socialnewsappclient.ui.authentication.component
+package com.github.justalexandeer.socialnewsappclient.ui.authentication.onboarding.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,7 +16,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.github.justalexandeer.socialnewsappclient.R
 import com.github.justalexandeer.socialnewsappclient.data.repository.OnboardingPage
 import com.google.android.material.math.MathUtils
