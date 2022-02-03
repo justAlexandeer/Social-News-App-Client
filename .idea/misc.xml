@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/avd_anim.xml" value="0.21666666666666667" />
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/avd_arrow.xml" value="0.1814814814814815" />
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/avd_check_to_close.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/avd_close_to_check.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/ic_close.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/ic_social_media_post_4544.xml" value="0.15648148148148147" />
         <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/ic_youtuber_4519.xml" value="0.15648148148148147" />
+        <entry key="..\:/Users/Alexandr/AndroidStudioProjects/SocialNewsAppClient/app/src/main/res/drawable/vd_pathmorph_crosstick_cross.xml" value="0.21666666666666667" />
       </map>
     </option>
   </component>

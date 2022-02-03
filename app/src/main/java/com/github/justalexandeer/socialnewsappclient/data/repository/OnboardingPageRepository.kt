@@ -1,9 +1,5 @@
 package com.github.justalexandeer.socialnewsappclient.data.repository
 
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.widget.ImageButton
 import com.github.justalexandeer.socialnewsappclient.R
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,7 +15,7 @@ class OnboardingPageRepository @Inject constructor() {
         return mutableListOf<OnboardingPage>().apply {
             add(
                 OnboardingPage(
-                    R.drawable.ic_youtuber_4519,
+                    R.raw.animated_vector_write_news,
                     "Consectetur lorem donec massa sapien",
                     "Egestas erat imperdiet sed euismod nisi porta lorem mollis aliquam ut " +
                             "porttitor leo a diam sollicitudin tempor"
@@ -27,7 +23,7 @@ class OnboardingPageRepository @Inject constructor() {
             )
             add(
                 OnboardingPage(
-                    R.drawable.ic_social_media_post_4544,
+                    R.raw.animated_vector_share_news,
                     "Sed libero enim sed faucibus turpis in eu",
                     "Enim ut tellus elementum sagittis vitae et leo duis ut diam quam" +
                             " nulla porttitor massa id neque"
@@ -35,15 +31,15 @@ class OnboardingPageRepository @Inject constructor() {
             )
             add(
                 OnboardingPage(
-                    R.drawable.ic_social_media_announcement_4548,
-                    "egestas dui id ornare arcu",
+                    R.raw.animated_vector_create_account,
+                    "egestas dui id ornare arcu  enim sed in",
                     "massa sed elementum tempus egestas sed sed risus pretium quam " +
                             "vulputate dignissim"
                 )
             )
             add(
                 OnboardingPage(
-                    R.drawable.ic_youtuber_4533,
+                    R.raw.animated_vector_discuss,
                     "dolor purus non enim praesent elementum ",
                     "nunc mattis enim ut tellus elementum sagittis vitae et leo duis" +
                             " ut diam quam nulla porttitor massa id neque aliquam vestibulum morbi"
@@ -51,7 +47,7 @@ class OnboardingPageRepository @Inject constructor() {
             )
             add (
                 OnboardingPage(
-                    R.drawable.ic_social_media_marketing_4549,
+                    R.raw.animated_vector_add_to_favorite,
                     "facilisis mauris sit amet massa vitae",
                     "fermentum et sollicitudin ac orci phasellus egestas tellus rutrum " +
                             "tellus pellentesque eu tincidunt tortor aliquam"

@@ -21,10 +21,6 @@ class MainActivityViewModel @Inject constructor(
             }
     }
 
-    fun changeAuthenticationFlag(flag: Boolean) {
-        tokenRepository.setAuthenticationFlag(flag)
-    }
-
     companion object {
         private const val TAG = "MainActivityViewModel"
     }

@@ -2,9 +2,9 @@ package com.github.justalexandeer.socialnewsappclient
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import com.github.justalexandeer.socialnewsappclient.ui.SocialNewsAppClient
@@ -17,13 +17,12 @@ import kotlinx.coroutines.InternalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    @ExperimentalAnimationGraphicsApi
     @ExperimentalFoundationApi
     @InternalCoroutinesApi
     @ExperimentalPagerApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Log.i("TAG", "onCreate: ${convertDpToPixels(this, 100f)}")
 
         setContent {
             SocialNewsAppClientTheme {

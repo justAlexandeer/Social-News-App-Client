@@ -2,7 +2,9 @@ package com.github.justalexandeer.socialnewsappclient.data.sharedpreferences
 
 import android.content.SharedPreferences
 import android.util.Log
+import io.reactivex.rxjava3.processors.BehaviorProcessor.createDefault
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.subjects.BehaviorSubject.createDefault
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 class SharedPreferencesManager(
@@ -14,8 +16,8 @@ class SharedPreferencesManager(
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
-    private val needAuthentication: BehaviorSubject<Boolean> =
-        BehaviorSubject.createDefault(getAuthenticationFlag())
+    private val needAuthentication: PublishSubject<Boolean> =
+        PublishSubject.create()
 
     fun saveAccessToken(accessToken: String) {
         with(sharedPreferencesEditor) {
@@ -50,7 +52,7 @@ class SharedPreferencesManager(
         return sharedPreferences.getBoolean(NEED_AUTHENTICATION, false)
     }
 
-    fun getObservableAuthenticationFlag(): BehaviorSubject<Boolean> {
+    fun getObservableAuthenticationFlag(): PublishSubject<Boolean> {
         return needAuthentication
     }
 
