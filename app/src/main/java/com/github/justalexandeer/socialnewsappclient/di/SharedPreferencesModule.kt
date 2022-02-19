@@ -2,14 +2,13 @@ package com.github.justalexandeer.socialnewsappclient.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.github.justalexandeer.socialnewsappclient.data.sharedpreferences.SharedPreferencesManager
-import com.github.justalexandeer.socialnewsappclient.data.sharedpreferences.SharedPreferencesManager.Companion.APP_PREFERENCES
+import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.preferences.SharedPreferencesManager
+import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.preferences.SharedPreferencesManager.Companion.APP_PREFERENCES
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
