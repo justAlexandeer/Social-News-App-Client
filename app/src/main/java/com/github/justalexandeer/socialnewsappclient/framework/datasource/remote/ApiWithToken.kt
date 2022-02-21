@@ -1,9 +1,6 @@
 package com.github.justalexandeer.socialnewsappclient.framework.datasource.remote
 
-import com.github.justalexandeer.socialnewsappclient.business.domain.model.Category
-import com.github.justalexandeer.socialnewsappclient.business.domain.model.Page
-import com.github.justalexandeer.socialnewsappclient.business.domain.model.RemoteResponse
-import com.github.justalexandeer.socialnewsappclient.business.domain.model.SimplePost
+import com.github.justalexandeer.socialnewsappclient.business.domain.model.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -29,5 +26,15 @@ interface ApiWithToken {
     suspend fun getTopSimplePostOfMonth(
         @Query("limit") limit: Int
     ): RemoteResponse<List<SimplePost>>
+
+    @GET("/api/getTopTags")
+    suspend fun getTopTags(
+        @Query("limit") limit: Int
+    ): RemoteResponse<List<Tag>>
+
+    @GET("/api/getTopAuthors")
+    suspend fun getTopAuthors(
+        @Query("limit") limit: Int
+    ): RemoteResponse<List<AppUser>>
 
 }

@@ -6,7 +6,6 @@ import java.util.*
 
 class FakeTestPostRemoteRepository : PostRemoteRepository {
 
-    lateinit var response: RemoteResponse<Page<SimplePost>>
     var throwException = false
 
     override suspend fun getLastPostsByCategory(
@@ -21,6 +20,22 @@ class FakeTestPostRemoteRepository : PostRemoteRepository {
         }
     }
 
+    override suspend fun getTopSimplePostOfMonth(limit: Int): RemoteResponse<List<SimplePost>> {
+        return if(throwException) {
+            throw Exception()
+        } else {
+            return RemoteResponse("success", null, createListOfSimplePageByLimit(limit))
+        }
+    }
+
+    fun createListOfSimplePageByLimit(limit: Int): List<SimplePost> {
+        val listOfSimplePost = mutableListOf<SimplePost>()
+        repeat(limit) {
+            listOfSimplePost.add(createSingleSimplePost())
+        }
+        return listOfSimplePost
+    }
+
     fun createResponseWithSimplePostByCategory(
         category: Category,
         pageNumber: Int,
@@ -28,7 +43,7 @@ class FakeTestPostRemoteRepository : PostRemoteRepository {
     ): RemoteResponse<Page<SimplePost>> {
         val remoteResponseData = mutableListOf<SimplePost>()
         repeat(pageSize) {
-            remoteResponseData.add(createSinglePage(category))
+            remoteResponseData.add(createSingleSimplePost(category))
         }
         return RemoteResponse(
             "success",
@@ -41,12 +56,14 @@ class FakeTestPostRemoteRepository : PostRemoteRepository {
         )
     }
 
-    fun createSinglePage(category: Category): SimplePost {
+    fun createSingleSimplePost(
+        category: Category = createRandomCategory()
+    ): SimplePost {
         return SimplePost(
             randomLong(),
             UUID.randomUUID().toString(),
             randomLong(),
-            AppUser(UUID.randomUUID().toString(), UUID.randomUUID().toString()),
+            AppUser(UUID.randomUUID().toString(), UUID.randomUUID().toString(),(0..10).random()),
             category,
             mutableListOf(),
             UUID.randomUUID().toString(),
@@ -87,6 +104,10 @@ class FakeTestPostRemoteRepository : PostRemoteRepository {
             sorted = true,
             unsorted = false
         )
+    }
+
+    fun createRandomCategory(): Category {
+        return Category(randomLong(), UUID.randomUUID().toString(), true)
     }
 
     fun randomLong(): Long {

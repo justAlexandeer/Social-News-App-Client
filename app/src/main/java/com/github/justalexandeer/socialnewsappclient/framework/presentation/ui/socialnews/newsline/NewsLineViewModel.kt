@@ -3,9 +3,9 @@ package com.github.justalexandeer.socialnewsappclient.framework.presentation.ui.
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.justalexandeer.socialnewsappclient.business.interactors.newsline.GetDefaultCategoriesUseCase
-import com.github.justalexandeer.socialnewsappclient.business.interactors.newsline.GetLastSimplePostsByCategoryUseCase
-import com.github.justalexandeer.socialnewsappclient.business.interactors.newsline.GetTopSimplePostOfMonthUseCase
+import com.github.justalexandeer.socialnewsappclient.business.domain.state.DataState
+import com.github.justalexandeer.socialnewsappclient.business.domain.state.DataStateStatus
+import com.github.justalexandeer.socialnewsappclient.business.interactors.newsline.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -15,7 +15,9 @@ import javax.inject.Inject
 class NewsLineViewModel @Inject constructor(
     private val getLastSimplePostsByCategory: GetLastSimplePostsByCategoryUseCase,
     private val getDefaultCategoriesUseCase: GetDefaultCategoriesUseCase,
-    private val getTopSimplePostOfMonthUseCase: GetTopSimplePostOfMonthUseCase
+    private val getTopSimplePostOfMonthUseCase: GetTopSimplePostOfMonthUseCase,
+    private val getTopTagsUseCase: GetTopTagsUseCase,
+    private val getTopUsersUseCase: GetTopUsersUseCase
 ) : ViewModel() {
 
     init {
@@ -25,9 +27,13 @@ class NewsLineViewModel @Inject constructor(
 
     fun getPost() {
         viewModelScope.launch {
-
-            val data = getTopSimplePostOfMonthUseCase.invoke(5).collect {
-                Log.i(TAG, "getPost: ${it.data}")
+            val data = getTopUsersUseCase.invoke(5).collect {
+                if(it.status == DataStateStatus.Success) {
+                    Log.i(TAG, "getPost: ${it.data}")
+                } else {
+                    Log.i(TAG, "${it.errorMessage} and ${it.errorType}")
+                    Log.i(TAG, "${it.data}")
+                }
             }
             Log.i(TAG, "getPost: $data")
 //            getLastSimplePostsByCategory.invoke().collect {

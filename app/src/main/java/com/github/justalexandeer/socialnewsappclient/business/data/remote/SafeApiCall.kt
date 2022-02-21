@@ -19,7 +19,7 @@ suspend fun <T> safeApiCall(
                 RemoteResult(RemoteResultStatus.Success, apiCall.invoke(), null)
             }
         } catch (throwable: Throwable) {
-            Log.i(TAG, "${throwable.printStackTrace()}")
+            //Log.i(TAG, "${throwable.printStackTrace()}")
             when (throwable) {
                 is TimeoutCancellationException -> {
                     RemoteResult(RemoteResultStatus.Error, null, NETWORK_ERROR_TIMEOUT)

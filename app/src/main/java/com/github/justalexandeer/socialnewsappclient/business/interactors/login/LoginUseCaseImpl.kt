@@ -2,7 +2,7 @@ package com.github.justalexandeer.socialnewsappclient.business.interactors.login
 
 import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.AuthorizationLocalRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.TokenLocalRepository
-import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.LoginUserRemoteRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.UserRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.remoteResultHandler
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.safeApiCall
 import com.github.justalexandeer.socialnewsappclient.business.domain.model.Token
@@ -16,14 +16,14 @@ import javax.inject.Singleton
 
 @Singleton
 class LoginUseCaseImpl @Inject constructor(
-    private val loginUserRemoteRepository: LoginUserRemoteRepository,
+    private val userRemoteRepository: UserRemoteRepository,
     private val tokenLocalRepository: TokenLocalRepository,
     private val authorizationLocalRepository: AuthorizationLocalRepository
 ): LoginUseCase {
     override operator fun invoke(username: String, password: String): Flow<DataState<Token?>> = flow {
         val dataState = remoteResultHandler(
             safeApiCall(Dispatchers.IO) {
-                loginUserRemoteRepository.loginUser(username, password)
+                userRemoteRepository.loginUser(username, password)
             }
         )
         if(dataState.status == DataStateStatus.Success) {

@@ -1,6 +1,6 @@
 package com.github.justalexandeer.socialnewsappclient.business.interactors.registration
 
-import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.RegistrationUserRemoteRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.UserRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.remoteResultHandler
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.safeApiCall
 import com.github.justalexandeer.socialnewsappclient.business.domain.state.DataState
@@ -12,11 +12,11 @@ import javax.inject.Singleton
 
 @Singleton
 class RegisterUseCaseImpl @Inject constructor(
-    private val registrationUserRemoteRepository: RegistrationUserRemoteRepository
+    private val userRemoteRepository: UserRemoteRepository
 ) : RegisterUseCase {
     override operator fun invoke(username: String, name: String, password: String): Flow<DataState<Void?>> = flow {
         val result = remoteResultHandler(safeApiCall(Dispatchers.IO) {
-            registrationUserRemoteRepository.registerUser(username, name, password)
+            userRemoteRepository.registerUser(username, name, password)
         })
         emit(result)
     }

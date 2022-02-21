@@ -3,17 +3,19 @@ package com.github.justalexandeer.socialnewsappclient.di
 import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.*
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.CategoryRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.preferences.implementation.OnboardingPagesLocalRepositoryImpl
-import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.LoginUserRemoteRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.UserRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.PostRemoteRepository
-import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.RegistrationUserRemoteRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.TagRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.database.implementation.CategoryLocalRepositoryImpl
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.database.implementation.PostLocalRepositoryImpl
+import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.database.implementation.TagLocalRepositoryImpl
+import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.database.implementation.UserLocalRepositoryImpl
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.preferences.implementation.AuthorizationLocalRepositoryImpl
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.preferences.implementation.TokenLocalRepositoryImpl
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.CategoryRemoteRepositoryImpl
-import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.LoginUserRemoteRepositoryImpl
+import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.UserRemoteRepositoryImpl
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.PostRemoteRepositoryImpl
-import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.RegistrationUserRemoteRepositoryImpl
+import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.TagRemoteRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,14 +31,15 @@ abstract class RepositoryModule {
     ):  OnboardingPagesLocalRepository
 
     @Binds
-    abstract fun bindRegistrationUserRemoteRepository(
-        registrationUserRemoteRepositoryImpl: RegistrationUserRemoteRepositoryImpl
-    ):  RegistrationUserRemoteRepository
+    abstract fun bindUserRemoteRepository(
+        userRemoteRepositoryImpl: UserRemoteRepositoryImpl
+    ): UserRemoteRepository
 
     @Binds
-    abstract fun bindLoginUserRemoteRepository(
-        loginUserRemoteRepositoryImpl: LoginUserRemoteRepositoryImpl
-    ): LoginUserRemoteRepository
+    abstract fun bindUserLocalRepository(
+        userLocalRepositoryImpl: UserLocalRepositoryImpl
+    ): UserLocalRepository
+
 
     @Binds
     abstract fun bindTokenLocalRepository(
@@ -67,5 +70,15 @@ abstract class RepositoryModule {
     abstract fun bindPostLocalRepository(
         simplePostLocalRepositoryImpl: PostLocalRepositoryImpl
     ): PostLocalRepository
+
+    @Binds
+    abstract fun bindTagRemoteRepository(
+        tagRemoteRepositoryImpl: TagRemoteRepositoryImpl
+    ): TagRemoteRepository
+
+    @Binds
+    abstract fun bindTagLocalRepository(
+        tagPostLocalRepositoryImpl: TagLocalRepositoryImpl
+    ): TagLocalRepository
 
 }

@@ -4,10 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = tableName)
-data class CategoryEntity(
-    @PrimaryKey val id: Long,
+data class TagEntity(
+    @PrimaryKey
+    val id: Long,
     val name: String,
-    val isDefault: Boolean,
+    val amountOfUse: Int
 )
 
-private const val tableName = "category_entity"
+private const val tableName = "tag_entity"

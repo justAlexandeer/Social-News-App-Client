@@ -2,8 +2,12 @@ package com.github.justalexandeer.socialnewsappclient.di
 
 import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.CategoryLocalRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.PostLocalRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.TagLocalRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.local.abstraction.UserLocalRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.CategoryRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.PostRemoteRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.TagRemoteRepository
+import com.github.justalexandeer.socialnewsappclient.business.data.remote.abstraction.UserRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.business.interactors.login.LoginUseCase
 import com.github.justalexandeer.socialnewsappclient.business.interactors.login.LoginUseCaseImpl
 import com.github.justalexandeer.socialnewsappclient.business.interactors.newsline.*
@@ -60,6 +64,16 @@ abstract class UseCaseModule {
         getTopSimplePostOfMonthUseCaseImpl: GetTopSimplePostOfMonthUseCaseImpl
     ): GetTopSimplePostOfMonthUseCase
 
+    @Binds
+    abstract fun GetTopTagsUseCase(
+        getTopTagsUseCaseImpl: GetTopTagsUseCaseImpl
+    ): GetTopTagsUseCase
+
+    @Binds
+    abstract fun GetTopUsersUseCase(
+        getTopUsersUseCaseImpl: GetTopUsersUseCaseImpl
+    ): GetTopUsersUseCase
+
     companion object {
         @Singleton
         @Provides
@@ -96,6 +110,30 @@ abstract class UseCaseModule {
         ) = GetTopSimplePostOfMonthUseCaseImpl(
             postLocalRepository,
             postRemoteRepository,
+            ioDispatcher
+        )
+
+        @Singleton
+        @Provides
+        fun provideGetTopTagsUseCase(
+            tagLocalRepository: TagLocalRepository,
+            tagRemoteRepository: TagRemoteRepository,
+            @IoDispatcher ioDispatcher: CoroutineDispatcher
+        ) = GetTopTagsUseCaseImpl(
+            tagLocalRepository,
+            tagRemoteRepository,
+            ioDispatcher
+        )
+
+        @Singleton
+        @Provides
+        fun provideGetTopAppUserUseCase(
+            userLocalRepository: UserLocalRepository,
+            userRemoteRepository: UserRemoteRepository,
+            @IoDispatcher ioDispatcher: CoroutineDispatcher
+        ) = GetTopUsersUseCaseImpl(
+            userLocalRepository,
+            userRemoteRepository,
             ioDispatcher
         )
     }

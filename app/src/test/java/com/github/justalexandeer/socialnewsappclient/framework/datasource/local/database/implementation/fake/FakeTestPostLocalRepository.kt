@@ -4,9 +4,7 @@ import com.github.justalexandeer.socialnewsappclient.business.data.local.abstrac
 import com.github.justalexandeer.socialnewsappclient.business.domain.model.AppUser
 import com.github.justalexandeer.socialnewsappclient.business.domain.model.Category
 import com.github.justalexandeer.socialnewsappclient.business.domain.model.SimplePost
-import org.junit.Assert.*
 import java.util.*
-import kotlin.random.Random.Default.nextInt
 
 class FakeTestPostLocalRepository : PostLocalRepository {
 
@@ -26,20 +24,28 @@ class FakeTestPostLocalRepository : PostLocalRepository {
         data.addAll(listOfPost)
     }
 
-    fun createListOfSimplePostWithCategory(category: Category): List<SimplePost> {
+    override suspend fun getTopSimplePostOfMonth(limit: Int): List<SimplePost> {
+        return data
+            .take(limit)
+            .sortedByDescending { it.commentCount }
+    }
+
+    fun createListOfSimplePost(
+        category: Category = createRandomCategory()
+    ): List<SimplePost> {
         val listOfSimplePost = mutableListOf<SimplePost>()
-        repeat((0..10).random()) {
-            listOfSimplePost.add(createSinglePage(category = category))
+        repeat((5..10).random()) {
+            listOfSimplePost.add(createSinglePost(category = category))
         }
         return listOfSimplePost
     }
 
-    fun createSinglePage(category: Category): SimplePost {
+    fun createSinglePost(category: Category): SimplePost {
         return SimplePost(
             randomLong(),
             UUID.randomUUID().toString(),
             randomLong(),
-            AppUser(UUID.randomUUID().toString(), UUID.randomUUID().toString()),
+            AppUser(UUID.randomUUID().toString(), UUID.randomUUID().toString(), (1..10).random()),
             category,
             mutableListOf(),
             UUID.randomUUID().toString(),
@@ -49,6 +55,10 @@ class FakeTestPostLocalRepository : PostLocalRepository {
 
     fun randomLong(): Long {
         return (0L..100000000L).random()
+    }
+
+    fun createRandomCategory(): Category {
+        return Category(randomLong(), UUID.randomUUID().toString(), true)
     }
 
 }

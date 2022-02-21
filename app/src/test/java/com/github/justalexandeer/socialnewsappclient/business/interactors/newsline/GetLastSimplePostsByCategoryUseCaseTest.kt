@@ -1,29 +1,22 @@
 package com.github.justalexandeer.socialnewsappclient.business.interactors.newsline
 
 import com.github.justalexandeer.socialnewsappclient.business.domain.model.Category
-import com.github.justalexandeer.socialnewsappclient.business.domain.model.Page
-import com.github.justalexandeer.socialnewsappclient.business.domain.model.RemoteResponse
 import com.github.justalexandeer.socialnewsappclient.business.domain.model.SimplePost
 import com.github.justalexandeer.socialnewsappclient.business.domain.state.DataState
 import com.github.justalexandeer.socialnewsappclient.business.domain.state.DataStateErrorType
 import com.github.justalexandeer.socialnewsappclient.business.domain.state.DataStateStatus
 import com.github.justalexandeer.socialnewsappclient.business.interactors.newsline.fake.FakeTestGetDefaultCategoriesUseCase
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.local.database.implementation.fake.FakeTestPostLocalRepository
-import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.fake.FakeTestCategoryRemoteRepository
 import com.github.justalexandeer.socialnewsappclient.framework.datasource.remote.implementation.fake.FakeTestPostRemoteRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.*
-import kotlinx.coroutines.withContext
-import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual
-import org.hamcrest.core.IsNot
+import org.hamcrest.core.IsNull
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import java.lang.Exception
 
@@ -102,7 +95,7 @@ class GetLastSimplePostsByCategoryUseCaseTest {
 
 
     @Test
-    fun useCase_errorRemoteAndInLocalHasData_returnSuccessWithLocalData() {
+    fun useCase_errorRemoteAndInLocalHasData_returnErrorWithLocalData() {
         runBlocking {
             fakeTestGetDefaultCategoriesUseCase.data = DataState(
                 DataStateStatus.Success,
@@ -119,7 +112,7 @@ class GetLastSimplePostsByCategoryUseCaseTest {
             val mapCategoryAndListPostFromLocal = mutableMapOf<Category, List<SimplePost>>()
             listOfCategories!!.forEach {
                 fakeTestPostLocalRepository.saveListOfSimplePost(
-                    fakeTestPostLocalRepository.createListOfSimplePostWithCategory(
+                    fakeTestPostLocalRepository.createListOfSimplePost(
                         it
                     )
                 )
@@ -168,6 +161,8 @@ class GetLastSimplePostsByCategoryUseCaseTest {
 
             assertThat(dataState.status, IsEqual(DataStateStatus.Success))
             assertThat(dataState.data, IsEqual(mapCategoryAndListPostFromLocal))
+            assertThat(dataState.errorMessage, IsNull())
+            assertThat(dataState.errorType, IsNull())
             try {
                 dataState = getLastSimplePostsByCategoryUseCase.invoke(limit).drop(1).first()
             } catch (e: Exception) {
